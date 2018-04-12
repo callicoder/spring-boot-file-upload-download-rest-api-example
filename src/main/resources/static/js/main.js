@@ -19,14 +19,14 @@ function uploadSingleFile(file) {
 
     xhr.onload = function() {
         console.log(xhr.responseText);
+        var response = JSON.parse(xhr.responseText);
         if(xhr.status == 200) {
             singleFileUploadError.style.display = "none";
-            var response = JSON.parse(xhr.responseText);
             singleFileUploadSuccess.innerHTML = "<p>File Uploaded Successfully.</p><p>DownloadUrl : <a href='" + response.fileDownloadUri + "' target='_blank'>" + response.fileDownloadUri + "</a></p>";
             singleFileUploadSuccess.style.display = "block";
         } else {
             singleFileUploadSuccess.style.display = "none";
-            singleFileUploadError.innerHTML = (responseText && responseText.message) || "Some Error Occurred";
+            singleFileUploadError.innerHTML = (response && response.message) || "Some Error Occurred";
         }
     }
 
@@ -44,9 +44,9 @@ function uploadMultipleFiles(files) {
 
     xhr.onload = function() {
         console.log(xhr.responseText);
+        var response = JSON.parse(xhr.responseText);
         if(xhr.status == 200) {
             multipleFileUploadError.style.display = "none";
-            var response = JSON.parse(xhr.responseText);
             var content = "<p>All Files Uploaded Successfully</p>";
             for(var i = 0; i < response.length; i++) {
                 content += "<p>DownloadUrl : <a href='" + response[i].fileDownloadUri + "' target='_blank'>" + response[i].fileDownloadUri + "</a></p>";
@@ -55,13 +55,12 @@ function uploadMultipleFiles(files) {
             multipleFileUploadSuccess.style.display = "block";
         } else {
             multipleFileUploadSuccess.style.display = "none";
-            multipleFileUploadError.innerHTML = (responseText && responseText.message) || "Some Error Occurred";
+            multipleFileUploadError.innerHTML = (response && response.message) || "Some Error Occurred";
         }
     }
 
     xhr.send(formData);
 }
-
 
 singleUploadForm.addEventListener('submit', function(event){
     var files = singleFileUploadInput.files;
@@ -77,9 +76,10 @@ singleUploadForm.addEventListener('submit', function(event){
 multipleUploadForm.addEventListener('submit', function(event){
     var files = multipleFileUploadInput.files;
     if(files.length === 0) {
-        multipleFileUploadError.innerHTML = "Please select a file";
+        multipleFileUploadError.innerHTML = "Please select at least one file";
         multipleFileUploadError.style.display = "block";
     }
     uploadMultipleFiles(files);
     event.preventDefault();
 }, true);
+
