@@ -4,12 +4,12 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>com.example</groupId>
-	<artifactId>spring-boot-file-upload-demo</artifactId>
+	<artifactId>file-demo</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>jar</packaging>
 
-	<name>file-upload-demo</name>
-	<description>Demo project for Spring Boot</description>
+	<name>file-demo</name>
+	<description>Spring Boot File Upload / Download Demo</description>
 
 	<parent>
 		<groupId>org.springframework.boot</groupId>
