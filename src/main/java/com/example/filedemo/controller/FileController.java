@@ -1,7 +1,6 @@
 package com.example.filedemo.controller;
 
 import com.example.filedemo.payload.UploadFileResponse;
-import com.example.filedemo.property.FileStorageProperties;
 import com.example.filedemo.service.FileStorageService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -16,7 +15,6 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
-import java.nio.file.Files;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -28,9 +26,6 @@ public class FileController {
 
     @Autowired
     private FileStorageService fileStorageService;
-
-    @Autowired
-    private FileStorageProperties fileStorageProperties;
 
     @PostMapping("/uploadFile")
     public UploadFileResponse uploadFile(@RequestParam("file") MultipartFile file) {

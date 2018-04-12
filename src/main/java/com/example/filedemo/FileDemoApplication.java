@@ -9,9 +9,9 @@ import org.springframework.boot.context.properties.EnableConfigurationProperties
 @EnableConfigurationProperties({
 		FileStorageProperties.class
 })
-public class FileUploadDemoApplication {
+public class FileDemoApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(FileUploadDemoApplication.class, args);
+		SpringApplication.run(FileDemoApplication.class, args);
 	}
 }
