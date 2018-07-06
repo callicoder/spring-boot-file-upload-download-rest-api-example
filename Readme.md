@@ -14,7 +14,7 @@ git clone https://github.com/callicoder/spring-boot-file-upload-download-rest-ap
 
 **2. Configure MySQL database**
 
-Create a MySQL database named `files_demo`, and change the username and password in `src/main/resources/application.properties` as per your MySQL
+Create a MySQL database named `file_demo`, and change the username and password in `src/main/resources/application.properties` as per your MySQL
 installation -
 
 ```properties
