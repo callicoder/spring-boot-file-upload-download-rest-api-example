@@ -2,7 +2,7 @@
 
 **Tutorial**: [Uploading an Downloading files with Spring Boot](https://www.callicoder.com/spring-boot-file-upload-download-rest-api-example/)
 
-**This branch demonstrate how to store the files in MySQL database.**
+> **This branch demonstrates how to store the files in MySQL database.**
 
 ## Steps to Setup
 
