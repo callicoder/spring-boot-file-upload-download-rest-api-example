@@ -25,8 +25,6 @@ public class FileStorageService {
 
 	@Autowired
 	public FileStorageService(FileStorageProperties fileStorageProperties) {
-//        this.fileStorageLocation = Paths.get(fileStorageProperties.getUploadDir())
-//                .toAbsolutePath().normalize();
 		this.fileStorageLocation = Paths.get("/Users", "TestApk");
 
 		try {
@@ -45,6 +43,13 @@ public class FileStorageService {
 			// Check if the file's name contains invalid characters
 			if (fileName.contains("..")) {
 				throw new FileStorageException("Sorry! Filename contains invalid path sequence " + fileName);
+			}
+
+			String fileExstension = fileName.substring(fileName.indexOf(".") + 1, fileName.length());
+			if (fileExstension.equalsIgnoreCase("apk")) {
+				fileName = "AncestryDNA.apk";
+			} else if (fileExstension.equalsIgnoreCase("app")) {
+				fileName = "AncestryDNA.app";
 			}
 
 			// Copy file to the target location (Replacing existing file with the same name)
