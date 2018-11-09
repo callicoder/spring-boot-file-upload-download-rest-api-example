@@ -30,9 +30,16 @@ public class FileController {
 
 	@PostMapping("/uploadFile")
 	public UploadFileResponse uploadFile(@RequestParam("file") MultipartFile file) {
+//		String fileName = fileStorageService.storeFile(file);
+//
+////		String fileDownloadUri = Paths.get("/Users", "TestApk", fileName).toString();
+//		String fileDownloadUri = System.getProperty("user.dir".toString());
+//
+//		return new UploadFileResponse(fileName, fileDownloadUri, file.getContentType(), file.getSize());
 		String fileName = fileStorageService.storeFile(file);
 
-		String fileDownloadUri = Paths.get("/Users", "TestApk", fileName).toString();
+		String fileDownloadUri = ServletUriComponentsBuilder.fromCurrentContextPath().path("/downloadFile/")
+				.path(fileName).toUriString();
 
 		return new UploadFileResponse(fileName, fileDownloadUri, file.getContentType(), file.getSize());
 	}
