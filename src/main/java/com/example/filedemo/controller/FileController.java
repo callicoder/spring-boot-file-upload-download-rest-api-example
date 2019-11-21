@@ -84,7 +84,7 @@ public class FileController {
 	public ResponseEntity<byte[]> previewFile(@PathVariable String fileName) throws IOException {
 
 		Resource resource = fileStorageService.loadFileAsResource(fileName);
-
+		
 		File img = resource.getFile();
 
 		// Return readed image

@@ -7,11 +7,13 @@ import com.example.filedemo.property.FileStorageProperties;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
+
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.nio.file.Files;
@@ -46,10 +48,10 @@ public class FileStorageService {
 			if (fileName.contains("..")) {
 				throw new FileStorageException("Sorry! Filename contains invalid path sequence " + fileName);
 			}
-			
-            // generate new file name
-            newFileName = generateFileName(fileName);
-			
+
+			// generate new file name
+			newFileName = generateFileName(fileName);
+
 			// Copy file to the target location (Replacing existing file with the same name)
 			Path targetLocation = this.fileStorageLocation.resolve(newFileName);
 			Files.copy(file.getInputStream(), targetLocation, StandardCopyOption.REPLACE_EXISTING);
@@ -63,11 +65,10 @@ public class FileStorageService {
 	public Resource loadFileAsResource(String fileName) {
 		try {
 			Path filePath = this.fileStorageLocation.resolve(fileName).normalize();
-			Path defaultPath = this.fileStorageLocation.resolve("default_image.jpg").normalize();
 
 			// if filepath is null return default image
 			if (filePath == null)
-				return new UrlResource(defaultPath.toUri());
+				return new ClassPathResource("/static/assets/default_image.jpg");
 
 			Resource resource = new UrlResource(filePath.toUri());
 			if (resource.exists()) {
@@ -75,7 +76,7 @@ public class FileStorageService {
 			} else {
 				System.out.println("File not found " + fileName);
 				// If there is an error, return default image to preview.
-				return new UrlResource(defaultPath.toUri());
+				return new ClassPathResource("/static/assets/default_image.jpg");
 			}
 		} catch (MalformedURLException ex) {
 			throw new MyFileNotFoundException("File not found " + fileName, ex);
