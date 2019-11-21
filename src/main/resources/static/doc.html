@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport"
+	content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
+<title>HAOS File Upload / Download Rest API</title>
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+	integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+	crossorigin="anonymous">
+<link rel="stylesheet"
+	href="https://use.fontawesome.com/releases/v5.0.13/css/all.css"
+	integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp"
+	crossorigin="anonymous">
+<link rel="stylesheet" href="/css/list.css" />
+<link rel="stylesheet"
+	href="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.16.2/build/styles/atom-one-dark.min.css">
+</head>
+<body>
+	<noscript>
+		<h2>Sorry! Your browser doesn't support Javascript</h2>
+	</noscript>
+
+	<div class="">
+		<div class="row">
+			<h2 style="text-align: center; margin: 0 auto;">HAOS Image &
+				File List Service Usage Document</h2>
+		</div>
+		<div class="row ml-4 mt-2">
+			<a href="#" class="btn btn-primary disabled" role="button" aria-disabled="true">POST</a> 
+			<a href="#" class="btn btn-warning disabled ml-1" role="button" aria-disabled="true" style="width:90%;">url: <strong>/uploadFile</strong>   contentType: <strong>Content-Type: multipart/form-data</strong>  imageData <strong>file=@sample.jpg</strong></a>
+		</div>
+		<div class="row">
+			<pre style="width: 100%;">
+				<code class="json">
+	// curl single image upload http request			
+	curl -X POST -H "Content-Type: multipart/form-data"  -F "file=@sample.jpg" http://localhost:8080/uploadFile  | json_pp
+	
+	// curl single image upload http response
+	{
+	   "filePreviewUri" : "http://localhost:8080/preview/172303_19112019_QTSKBVDE.jpg",
+	   "fileName" : "172303_19112019_QTSKBVDE.jpg",
+	   "size" : 3331132,
+	   "fileDownloadUri" : "http://localhost:8080/downloadFile/172303_19112019_QTSKBVDE.jpg",
+	   "fileType" : "image/jpeg"
+	}
+ 			</code>
+			</pre>
+		</div>
+		
+		<div class="row ml-4">
+			<a href="#" class="btn btn-primary disabled" role="button" aria-disabled="true">POST</a> 
+			<a href="#" class="btn btn-warning disabled ml-1" role="button" aria-disabled="true" style="width:90%;">url: <strong>/uploadMultipleFiles</strong>   contentType: <strong>Content-Type: multipart/form-data</strong>  imageDatas <strong>files=@sample.jpg</strong> <strong>files=@sample.jpg</strong> <strong>files=@sample.jpg</strong></a>
+		</div>		
+		<div class="row">
+			<pre style="width: 100%;">
+				<code class="json">
+	// curl multiple images upload http request			
+	curl -X POST -H "Content-Type: multipart/form-data"  -F "files=@sample.jpg" -F "files=@sample.jpg" -F "files=@sample.jpg" http://localhost:8080/uploadMultipleFiles | json_pp
+	
+	// curl multiple images upload http response
+	[
+	   {
+	      "fileDownloadUri" : "http://localhost:8080/downloadFile/173330_19112019_FGMRZULS.jpg",
+	      "fileType" : "image/jpeg",
+	      "fileName" : "173330_19112019_FGMRZULS.jpg",
+	      "filePreviewUri" : "http://localhost:8080/preview/173330_19112019_FGMRZULS.jpg",
+	      "size" : 3331132
+	   },
+	   {
+	      "fileType" : "image/jpeg",
+	      "fileDownloadUri" : "http://localhost:8080/downloadFile/173330_19112019_WFKMAQOK.jpg",
+	      "fileName" : "173330_19112019_WFKMAQOK.jpg",
+	      "size" : 3331132,
+	      "filePreviewUri" : "http://localhost:8080/preview/173330_19112019_WFKMAQOK.jpg"
+	   },
+	   {
+	      "filePreviewUri" : "http://localhost:8080/preview/173331_19112019_SROPPYBA.jpg",
+	      "size" : 3331132,
+	      "fileType" : "image/jpeg",
+	      "fileName" : "173331_19112019_SROPPYBA.jpg",
+	      "fileDownloadUri" : "http://localhost:8080/downloadFile/173331_19112019_SROPPYBA.jpg"
+	   }
+	]
+ 			</code>
+			</pre>
+		</div>
+		<div class="row ml-4">
+			<a href="#" class="btn btn-success disabled" role="button" aria-disabled="true">GET</a> 
+			<a href="#" class="btn btn-warning disabled ml-1" role="button" aria-disabled="true" style="width:90%;">url: <strong>/preview/{fileName}</strong>   contentType: <strong>Content-Type: multipart/form-data</strong></a>
+		</div>		
+		<div class="row">
+			<pre style="width: 100%;">
+				<code class="json">
+	// return an image if url is valid, if not return default image
+	http://localhost:8080/preview/IMAGENAME.PNG|JPG etc
+ 			</code>
+			</pre>
+		</div>		
+		<div class="row ml-4">
+			<a href="#" class="btn btn-success disabled" role="button" aria-disabled="true">GET</a> 
+			<a href="#" class="btn btn-warning disabled ml-1" role="button" aria-disabled="true" style="width:90%;">url: <strong>/listImages</strong></a>
+		</div>	
+		<div class="row">
+			<pre style="width: 100%;">
+				<code class="json">
+	// curl get all files names and privew server links request			
+	curl -X GET http://localhost:8080/listImages | json_pp
+	
+	// curl get all files names and privew server links request
+	[
+	   {
+	      "preview" : "http://localhost:8080/preview/073e8b03-1260-4018-b697-932aa25720c7.PNG",
+	      "name" : "073e8b03-1260-4018-b697-932aa25720c7.PNG"
+	   },
+	   {
+	      "name" : "084347_20112019_OTQDOMRP.jpg",
+	      "preview" : "http://localhost:8080/preview/084347_20112019_OTQDOMRP.jpg"
+	   },
+	   {
+	      "name" : "12Factor.PNG",
+	      "preview" : "http://localhost:8080/preview/12Factor.PNG"
+	   },
+	   {
+	      "name" : "163351_19112019_ARHAWFUL.PNG",
+	      "preview" : "http://localhost:8080/preview/163351_19112019_ARHAWFUL.PNG"
+	   },
+	   {
+	      "preview" : "http://localhost:8080/preview/163653_19112019_CREMROBE.PNG",
+	      "name" : "163653_19112019_CREMROBE.PNG"
+	   }
+	   ....
+	]
+
+ 			</code>
+			</pre>
+		</div>		
+	</div>
+
+	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+		integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+		crossorigin="anonymous"></script>
+	<script
+		src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+		integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+		crossorigin="anonymous"></script>
+	<script
+		src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+		integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+		crossorigin="anonymous"></script>
+	<script
+		src="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.16.2/build/highlight.min.js"></script>
+	<script>
+		hljs.initHighlightingOnLoad();
+	</script>
+</body>
+</html>

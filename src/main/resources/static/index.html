@@ -2,7 +2,7 @@
 <html>
     <head>
         <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
-        <title>Spring Boot File Upload / Download Rest API Example</title>
+        <title>HAOS File Upload / Download Rest API</title>
         <link rel="stylesheet" href="/css/main.css" />
     </head>
     <body>
@@ -11,7 +11,9 @@
         </noscript>
         <div class="upload-container">
             <div class="upload-header">
-                <h2>Spring Boot File Upload / Download Rest API Example</h2>
+                <h2>Spring Boot File Upload / Download Rest API</h2>
+                <button class="primary submit-btn" onclick="window.location.href='list.html'">List of Images</button>
+                <button class="primary submit-btn" onclick="window.location.href='doc.html'">Usage Of Methods</button>
             </div>
             <div class="upload-content">
                 <div class="single-upload">
@@ -23,6 +25,7 @@
                     <div class="upload-response">
                         <div id="singleFileUploadError"></div>
                         <div id="singleFileUploadSuccess"></div>
+						<div id="singleFileUploadSuccessPreview"></div>
                     </div>
                 </div>
                 <div class="multiple-upload">

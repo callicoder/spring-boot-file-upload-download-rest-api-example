@@ -4,13 +4,15 @@ package com.example.filedemo.payload;
 public class UploadFileResponse {
     private String fileName;
     private String fileDownloadUri;
+    private String filePreviewUri;
     private String fileType;
     private long size;
 
-    public UploadFileResponse(String fileName, String fileDownloadUri, String fileType, long size) {
+    public UploadFileResponse(String fileName, String fileDownloadUri, String filePreviewUri, String fileType, long size) {
         this.fileName = fileName;
         this.fileDownloadUri = fileDownloadUri;
         this.fileType = fileType;
+        this.filePreviewUri = filePreviewUri;
         this.size = size;
     }
 
@@ -45,4 +47,12 @@ public class UploadFileResponse {
     public void setSize(long size) {
         this.size = size;
     }
+    
+    public String getFilePreviewUri() {
+		return filePreviewUri;
+	}
+
+	public void setFilePreviewUri(String filePreviewUri) {
+		this.filePreviewUri = filePreviewUri;
+	}
 }

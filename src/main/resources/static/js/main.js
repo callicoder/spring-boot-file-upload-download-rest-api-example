@@ -2,6 +2,7 @@
 
 var singleUploadForm = document.querySelector('#singleUploadForm');
 var singleFileUploadInput = document.querySelector('#singleFileUploadInput');
+var singleFileUploadSuccessPreview = document.querySelector('#singleFileUploadSuccessPreview');
 var singleFileUploadError = document.querySelector('#singleFileUploadError');
 var singleFileUploadSuccess = document.querySelector('#singleFileUploadSuccess');
 
@@ -19,13 +20,20 @@ function uploadSingleFile(file) {
 
     xhr.onload = function() {
         console.log(xhr.responseText);
+        debugger;
         var response = JSON.parse(xhr.responseText);
         if(xhr.status == 200) {
             singleFileUploadError.style.display = "none";
             singleFileUploadSuccess.innerHTML = "<p>File Uploaded Successfully.</p><p>DownloadUrl : <a href='" + response.fileDownloadUri + "' target='_blank'>" + response.fileDownloadUri + "</a></p>";
             singleFileUploadSuccess.style.display = "block";
+            
+            singleFileUploadSuccessPreview.style.display = "none";
+            singleFileUploadSuccessPreview.innerHTML = "<p>PreviewUrl : <a href='" + response.filePreviewUri + "' target='_blank'>" + response.fileName + "</a></p>";
+            singleFileUploadSuccessPreview.style.display = "block";
+            
         } else {
             singleFileUploadSuccess.style.display = "none";
+            singleFileUploadSuccessPreview.style.display = "none";
             singleFileUploadError.innerHTML = (response && response.message) || "Some Error Occurred";
         }
     }
@@ -50,6 +58,7 @@ function uploadMultipleFiles(files) {
             var content = "<p>All Files Uploaded Successfully</p>";
             for(var i = 0; i < response.length; i++) {
                 content += "<p>DownloadUrl : <a href='" + response[i].fileDownloadUri + "' target='_blank'>" + response[i].fileDownloadUri + "</a></p>";
+                content += "<p>PreviewUrl : <a href='" + response[i].filePreviewUri + "' target='_blank'>" + response[i].fileName + "</a></p>";
             }
             multipleFileUploadSuccess.innerHTML = content;
             multipleFileUploadSuccess.style.display = "block";
